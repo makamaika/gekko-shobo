@@ -303,3 +303,50 @@ details.charm ul { margin: 0.4rem 0 0.8rem; padding-left: 1.2rem; line-height: 1
   .btn { padding: 0.3rem 0.55rem; font-size: 0.72rem; }
   .prose { font-size: calc(1.08rem * var(--fs)); }
 }
+
+/* ---------- portal: two volumes ---------- */
+.vol-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+.vol-card {
+  position: relative; display: flex; flex-direction: column;
+  background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--line); border-radius: 18px;
+  padding: 2rem 2rem 1.8rem; overflow: hidden;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.vol-card::before {
+  content: ""; position: absolute; right: -40px; top: -40px;
+  width: 140px; height: 140px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(211,182,118,0.16), transparent 70%);
+}
+.vol-card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: var(--shadow); }
+.vol-label { font-family: var(--sans); letter-spacing: 0.4em; font-size: 0.74rem; color: var(--comet); }
+.vol-title { font-size: clamp(1.7rem, 4vw, 2.3rem); letter-spacing: 0.08em; margin: 0.6rem 0 0.5rem; color: var(--ink); font-weight: 600; }
+.vol-axis {
+  display: inline-block; align-self: flex-start; font-family: var(--sans);
+  font-size: 0.72rem; letter-spacing: 0.14em; color: var(--gold);
+  border: 1px solid var(--line); border-radius: 999px; padding: 0.22rem 0.7rem; margin-bottom: 0.9rem;
+}
+.vol-sub { color: var(--ink-soft); font-size: 0.96rem; line-height: 1.95; margin: 0 0 1.2rem; }
+.vol-toc {
+  list-style: none; margin: 0 0 1.4rem; padding: 1.1rem 0 0; border-top: 1px solid var(--line-2);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem 1.2rem;
+  font-family: var(--sans); font-size: 0.82rem; color: var(--muted);
+}
+.vol-toc li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vol-toc .li-no { color: var(--comet); margin-right: 0.5em; font-size: 0.74rem; }
+.vol-enter { font-family: var(--sans); font-size: 0.86rem; letter-spacing: 0.16em; color: var(--gold); margin-top: auto; }
+
+.hero-vol h1 { font-size: clamp(2.2rem, 7vw, 3.6rem); }
+
+/* POV tag on volume-2 story cards */
+.card .pov {
+  display: inline-block; font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.1em;
+  color: var(--comet); border: 1px solid var(--line); border-radius: 999px;
+  padding: 0.18rem 0.6rem; margin: 0 0 0.8rem 0.4rem; align-self: flex-start;
+}
+
+@media (max-width: 720px) {
+  .vol-grid { grid-template-columns: 1fr; }
+  .vol-toc { grid-template-columns: 1fr; }
+}
+
