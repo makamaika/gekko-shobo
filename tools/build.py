@@ -198,7 +198,9 @@ def build_volume_index(vol, other, volumes):
 
 def build_volume_about(vol, volumes):
     base = "../"
-    body_html = md_to_html(read_md(f"{vol['id']}/_about.md"), "page-prose")
+    ap = DATA / vol["id"] / "_about.md"
+    about_md = ap.read_text(encoding="utf-8") if ap.exists() else vol.get("subtitle", "")
+    body_html = md_to_html(about_md, "page-prose")
     inner = f"""{topbar(base)}
 <main class="page">
   <div class="eyebrow">月光書房 ・ {esc(vol['label'])}</div>
@@ -228,7 +230,9 @@ def build_volume_connections(vol, volumes):
   <tr><th>物語</th>{header_cells}</tr>
   {''.join(rows)}
 </table>"""
-    body_html = md_to_html(read_md(f"{vol['id']}/_connections.md"), "page-prose")
+    cp = DATA / vol["id"] / "_connections.md"
+    conn_md = cp.read_text(encoding="utf-8") if cp.exists() else read_md("_connections_default.md")
+    body_html = md_to_html(conn_md, "page-prose")
     inner = f"""{topbar(base)}
 <main class="page">
   <div class="eyebrow">月光書房 ・ {esc(vol['label'])}</div>
@@ -287,7 +291,7 @@ def build_story(vol, s, prev_s, next_s, volumes):
 def build_portal(site):
     base = ""
     vol_cards = []
-    for v in site["volumes"]:
+    for v in sorted(site["volumes"], key=lambda x: x.get("cycle", 999)):
         titles = "".join(
             f'<li><span class="li-no">{KANJI[int(s["num"])]}</span>{esc(s["title"])}</li>'
             for s in v["stories"]
@@ -304,7 +308,7 @@ def build_portal(site):
     body = f"""{topbar(base)}
 <section class="hero">
   {COMET_SVG}
-  <div class="kicker">二夜の物語集</div>
+  <div class="kicker">{esc(site.get('tagline','十二刻の物語'))}</div>
   <h1>月光書房</h1>
   <p class="sub">げっこうしょぼう</p>
   <p class="lead">{esc(intro)}</p>
@@ -317,7 +321,7 @@ def build_portal(site):
   <div class="index-nav" style="margin-top:2.4rem"><a href="about.html">月光書房について</a></div>
 </main>
 {foot(base, site['volumes'])}"""
-    write_html(ROOT / "index.html", head("月光書房 — 二夜の物語集", base) + body)
+    write_html(ROOT / "index.html", head(f"{site['title']} — {site.get('tagline','')}", base) + body)
 
 
 def build_portal_about(site):
@@ -346,7 +350,7 @@ def main():
     build_portal(site)
     build_portal_about(site)
     for i, vol in enumerate(volumes):
-        other = volumes[1 - i] if len(volumes) == 2 else None
+        other = None
         build_volume_index(vol, other, volumes)
         build_volume_about(vol, volumes)
         build_volume_connections(vol, volumes)
