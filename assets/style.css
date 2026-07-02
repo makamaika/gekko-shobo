@@ -292,6 +292,7 @@ details.charm ul { margin: 0.4rem 0 0.8rem; padding-left: 1.2rem; line-height: 1
 }
 .site-foot a { color: var(--muted); border-bottom: 1px solid var(--line); }
 .site-foot a:hover { color: var(--gold); }
+.disclaimer { max-width: 40rem; margin: 1.5rem auto 0; font-size: 0.72rem; letter-spacing: 0.03em; line-height: 1.95; color: var(--faint); opacity: 0.9; }
 
 /* nav links row on index */
 .index-nav { display:flex; gap:1.4rem; justify-content:center; flex-wrap:wrap; margin-top: 2rem; font-family:var(--sans); font-size:.84rem; letter-spacing:.16em;}

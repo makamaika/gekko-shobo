@@ -100,7 +100,7 @@ def write_html(path, content):
 
 
 def head(title, base, desc=""):
-    desc = desc or "彗星の夜にだけ現れる古書店『月光書房』── 二十四編の日本語短編からなる、二夜の物語集。"
+    desc = desc or "彗星の夜にだけ現れる古書店『月光書房』── 一日の十二刻・百四十四編からなる日本語短編集（AIによる創作）。"
     return f"""<!doctype html>
 <html lang="ja" data-theme="night">
 <head>
@@ -135,12 +135,10 @@ def topbar(base, with_tategaki=False):
 
 
 def foot(base, volumes):
-    links = [f'<a href="{base}index.html">入口</a>']
-    for v in volumes:
-        links.append(f'<a href="{base}{v["id"]}/index.html">{esc(v["label"])}</a>')
     return f"""<footer class="site-foot">
-  <div>月光書房  — 二夜の物語集</div>
-  <div style="margin-top:.6rem">{"　".join(links)}</div>
+  <div>月光書房 — 十二刻、百四十四の物語</div>
+  <div style="margin-top:.6rem"><a href="{base}index.html">入口</a>　<a href="{base}about.html">この本について</a></div>
+  <p class="disclaimer">本作品はすべてAI（Claude）によって生成された創作です。作中の人物・団体・地名・出来事、および著者として記した名前はすべて架空であり、実在するいかなる人物・団体・事件とも一切関係ありません。</p>
 </footer>
 <script src="{base}assets/app.js"></script>
 </body>
